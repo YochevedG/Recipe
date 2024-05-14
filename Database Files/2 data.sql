@@ -12,7 +12,6 @@ delete RecipeSteps
 delete RecipeIngredient
 delete MeasurementType
 delete Recipe
-delete Steps 
 delete Cuisine
 delete Ingredient 
 delete Users 
