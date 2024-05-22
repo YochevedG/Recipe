@@ -13,3 +13,8 @@ on c.cuisineType = x.CuisineName
 join Users u 
 on u.FirstName = x.FirstName
 and u.LastName = x.LastName
+
+select * from cuisine
+select total = count(*) from cuisine
+
+select  concat(recipename,  CURRENT_TIMESTAMP) from recipe
