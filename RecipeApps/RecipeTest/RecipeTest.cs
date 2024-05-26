@@ -24,21 +24,26 @@ namespace RecipeTest
             int usersid = SQLUtility.GetFirstRowValue("select top 1 usersid from users");
             Assume.That(usersid > 0, "cant run test, no users in db");
 
-            string recipename = SQLUtility.GetFirstRowValue("select recipeplusdate = concat(recipename,  CURRENT_TIMESTAMP) from recipe").ToString();
-            recipename = "Breakfast Muffins";
+            //string s = "";
+            //DataTable recipename = SQLUtility.GetDataTable("select top 1 recipename from recipe r");
+            string recipename = "Breakfast Muffins " + DateTime.Now;
 
-            TestContext.WriteLine("Insert Recipe with recipename = " + recipename);
+            int maxcalories = SQLUtility.GetFirstRowValue("select max(calories) from recipe");
+            maxcalories = maxcalories + 50;
+
+            TestContext.WriteLine("Insert Recipe with RecipeName = " + recipename);
 
             r["cuisineid"] = cuisineid;
             r["usersid"] = usersid;
             r["recipename"] = recipename;
             r["drafteddate"] = "2023-01-01";
-            r["calories"] = 200;
+            r["calories"] = maxcalories;
             Recipe.Save(dt);
 
-            int newid = SQLUtility.GetFirstRowValue("select * from recipe where recipename " + recipename);
-            Assert.IsTrue(newid > 0, "recipe with " + recipename + "is not found in db");
-            TestContext.WriteLine("recipe with " + recipename + "is found in db with value = " + newid);
+
+            int newid = SQLUtility.GetFirstRowValue("select * from recipe where calories = " + maxcalories);
+            Assert.IsTrue(newid > 0, "Recipe with calories = " + maxcalories + "is not found in db");
+            TestContext.WriteLine("recipe with " + maxcalories + "is found in db with pk value = " + newid);
         }
 
 
@@ -123,7 +128,7 @@ namespace RecipeTest
             TestContext.WriteLine("Num of cuisine in DB = " + cuisinecount);
             TestContext.WriteLine("ensure that num of rows returned by app matches " + cuisinecount);
 
-            DataTable dt = Recipe.GetUsersList();
+            DataTable dt = Recipe.GetCuisineList();
             Assert.IsTrue(dt.Rows.Count == cuisinecount, "Num rows returned by app (" + dt.Rows.Count + ") <> " + cuisinecount);
             TestContext.WriteLine("Number of rows in Cuisine returned by app = " + dt.Rows.Count);
         }
