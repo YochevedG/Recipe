@@ -133,7 +133,7 @@ namespace RecipeTest
             Assert.IsTrue(dt.Rows.Count == userscount, "Num rows returned by app (" + dt.Rows.Count + ") <> " + userscount);
             TestContext.WriteLine("Number of rows in Users returned by app = " + dt.Rows.Count);
         }
-
+        
         [Test]
         public void GetListOfCuisine()
         {
