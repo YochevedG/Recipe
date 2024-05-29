@@ -67,7 +67,7 @@ namespace RecipeSystem
             else
             {
                 sql = "insert recipe(cuisineid, usersid, recipename, drafteddate, calories)"; //, currentstatus, recipepic)";
-                sql += $"select '{r["cuisineid"]}', '{r["usersid"]}', '{r["RecipeName"]}','{r["DraftedDate"]}','{r["Calories"]}'"; //'{r["CurrentStatus"]}','{r["RecipePic"]}'";
+                sql += $"select '{r["CuisineId"]}', '{r["usersid"]}', '{r["RecipeName"]}','{r["DraftedDate"]}','{r["Calories"]}'"; //'{r["CurrentStatus"]}','{r["RecipePic"]}'";
             }
             Debug.Print(sql);
             SQLUtility.ExecuteSQL(sql);
