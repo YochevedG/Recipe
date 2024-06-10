@@ -124,6 +124,30 @@ namespace RecipeTest
         }
 
         [Test]
+        public void DeleteRecipeArchivedMoreThan30DaysOrDrafted()
+        {
+            string sql = @"
+select top 1 r.recipeid, r.recipename from Recipe r 
+where r.CurrentStatus = 'Drafted' 
+or  DATEDIFF(day, r.ArchivedDate, CURRENT_TIMESTAMP) > 30
+";
+            DataTable dt = SQLUtility.GetDataTable(sql);
+            int recipeid = 0;
+            string recipedesc = "";
+            if (dt.Rows.Count > 0)
+            {
+                recipeid = (int)dt.Rows[0]["recipeid"];
+                recipedesc = dt.Rows[0]["RecipeName"] + " " + dt.Rows[0]["RecipeName"];
+            }
+            Assume.That(recipeid > 0, "no recipes that are Archived More Than 30 Days Or Drafted in DB, cant run test");
+            TestContext.WriteLine("exsisting recipe that are Archived More Than 30 Days Or Drafted in DB = " + recipeid + " " + recipedesc);
+            TestContext.WriteLine("Ensure that app cannot delete this " + recipeid);
+
+            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            TestContext.WriteLine(ex.Message);
+        }
+
+        [Test]
         public void DeleteRecipeWithRelatedRecords()
         {
             DataTable dt = SQLUtility.GetDataTable("select top 1 r.recipeid, r.recipename from Recipe r join RecipeIngredient re on re.RecipeId = r.RecipeId join RecipeSteps rs on rs.recipeid = r.recipeid left join mealcourserecipe mc on mc.recipeid = r.recipeid left join cookbookrecipe cr on cr.RecipeId = r.RecipeId");
