@@ -2,7 +2,7 @@ create or alter procedure dbo.RecipeGet(@RecipeId int = 0 , @All bit = 0, @Recip
 as 
 begin 
     select @RecipeName = nullif(@RecipeName, '')
-    select r.recipeid, r.recipename, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Calories, r.CurrentStatus, r.RecipePic
+    select r.recipeid, r.CuisineId, r.UsersId, r.recipename, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Calories, r.CurrentStatus, r.RecipePic
     from recipe r
     where r.RecipeId = @RecipeId
     or @All = 1
@@ -21,3 +21,4 @@ select top 1@id = r.recipeid from recipe r
 
 exec RecipeGet @RecipeId = @id
 */
+

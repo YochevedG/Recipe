@@ -65,7 +65,12 @@ namespace RecipeWinForms
 
         private void Delete()
         {
-            Application.UseWaitCursor = true;
+            var response = MessageBox.Show("Are you sure you want to delete this recipe?", "Recipe", MessageBoxButtons.YesNo);
+            if (response == DialogResult.No)
+            {
+                return;
+            }
+                Application.UseWaitCursor = true;
             try
             {
                 Recipe.Delete(dtrecipe);
