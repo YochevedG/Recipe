@@ -1,4 +1,4 @@
-select * from recipe 
+
 
 ;with x as(
     select CuisineName = 'American', FirstName = 'Alyssa', LastName = 'Anisfeld', RecipeName = 'Cupcakes', DraftedDate = '01/01/2020', PublishedDate = '02/01/2020', ArchivedDate = null, Calories = 300
@@ -14,7 +14,3 @@ join Users u
 on u.FirstName = x.FirstName
 and u.LastName = x.LastName
 
-select * from cuisine
-select total = count(*) from cuisine
-
-select  concat(recipename,  CURRENT_TIMESTAMP) from recipe

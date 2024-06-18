@@ -345,7 +345,6 @@ select * from MealCourse
 select * from Cookbook
 select * from CookbookRecipe
 select * from MealCourseRecipe
-
 select r.recipeid, r.recipename from Recipe r left join RecipeIngredient re on re.RecipeId = r.RecipeId left join RecipeSteps rs on rs.recipeid = r.recipeid left join mealcourserecipe mc on mc.recipeid = r.recipeid left join cookbookrecipe cr on cr.RecipeId = r.RecipeId where re.RecipeIngredientId is null and rs.RecipeStepsId is null  and mc.MealCourseRecipeId is null and cr.CookbookRecipeId is null 
 
 
