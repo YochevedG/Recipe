@@ -7,6 +7,7 @@ namespace RecipeWinForms
     public partial class frmRecipe : Form
     {
         DataTable dtrecipe;
+        BindingSource bindsource = new BindingSource();
         public frmRecipe()
         {
             InitializeComponent();
@@ -19,7 +20,8 @@ namespace RecipeWinForms
         public void ShowForm(int recipeid)
         {
             dtrecipe = Recipe.Load(recipeid);
-            if(recipeid == 0)
+            bindsource.DataSource = dtrecipe;
+            if (recipeid == 0)
             {
                 dtrecipe.Rows.Add();
             }
@@ -35,13 +37,13 @@ namespace RecipeWinForms
             lstUser.DisplayMember = "LastName";
             lstUser.DataBindings.Add("SelectedValue", dtrecipe, "usersid");
 
-            WindowsFormsUtility.SetControlBinding(txtRecipeName, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtDraftedDate, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtPublishedDate, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtArchivedDate, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtCalories, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtCurrentStatus, dtrecipe);
-            WindowsFormsUtility.SetControlBinding(txtRecipePic, dtrecipe);
+            WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtDraftedDate, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtPublishedDate, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtArchivedDate, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtCalories, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtCurrentStatus, bindsource);
+            WindowsFormsUtility.SetControlBinding(txtRecipePic, bindsource);
 
             this.Show();
         }
@@ -52,6 +54,7 @@ namespace RecipeWinForms
             try
             {
                 Recipe.Save(dtrecipe);
+                bindsource.ResetBindings(false);
             }
             catch (Exception ex)
             {

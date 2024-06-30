@@ -44,33 +44,12 @@ namespace RecipeSystem
 
         public static void Save(DataTable dtrecipe)
         {
-            SQLUtility.DebugPrintDataTable(dtrecipe);
+            if (dtrecipe.Rows.Count == 0)
+            {
+                throw new Exception("Cannot call Recipe Save method because there are no rows in the table");
+            }
             DataRow r = dtrecipe.Rows[0];
-            int id = (int)r["recipeid"];
-            string sql = "";
-
-            if (id > 0)
-            {
-                sql = string.Join(Environment.NewLine, $"update recipe set",
-               $"CuisineId = '{r["CuisineId"]}',",
-               $"UsersId = '{r["UsersId"]}',",
-               $"RecipeName = '{r["RecipeName"]}',",
-               $"DraftedDate = '{r["DraftedDate"]}',",
-               //$"PublishedDate = '{r["PublishedDate"]}',",
-               //$"ArchivedDate = '{r["ArchivedDate"]}',",c
-               $"Calories = '{r["Calories"]}'",
-               //$"CurrentStatus = '{r["CurrentStatus"]}',",
-               // $"RecipePic = '{r["RecipePic"]}'",
-               $"where recipeid = {r["recipeid"]}");
-            }
-
-            else
-            {
-                sql = "insert recipe(cuisineid, usersid, recipename, drafteddate, calories)"; //, currentstatus, recipepic)";
-                sql += $"select '{r["CuisineId"]}', '{r["usersid"]}', '{r["RecipeName"]}','{r["DraftedDate"]}','{r["Calories"]}'"; //'{r["CurrentStatus"]}','{r["RecipePic"]}'";
-            }
-            Debug.Print(sql);
-            SQLUtility.ExecuteSQL(sql);
+            SQLUtility.SaveDataRow(r, "RecipeUpdate");
         }
 
         public static void Delete(DataTable dtrecipe)
