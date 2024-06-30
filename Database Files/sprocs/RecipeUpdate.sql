@@ -18,7 +18,7 @@ begin
 select @Calories = max(r.Calories) +1 from recipe r 
  
 
-insert Reciep(CuisineId, UsersId, RecipeName, DraftedDate, Calories)
+insert Recipe(CuisineId, UsersId, RecipeName, DraftedDate, Calories)
 values(@cuisineId, @UsersId, @RecipeName, @DraftedDate, @Calories)
 
 select @recipeid = scope_identity()
