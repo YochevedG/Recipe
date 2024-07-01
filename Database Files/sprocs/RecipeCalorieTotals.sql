@@ -11,7 +11,7 @@ on mcr.recipeid = r.recipeid
 join mealcourse mc
 on mc.mealcourseid = mcr.mealcourseid 
 join meal m 
-on m.mealid = mc.mealid 
+on m.mealid = mc.mealid  
 where r.recipeid = @recipeid
 group by m.mealname
 
