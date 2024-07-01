@@ -190,6 +190,7 @@
             txtDraftedDate.Margin = new Padding(4);
             txtDraftedDate.Multiline = true;
             txtDraftedDate.Name = "txtDraftedDate";
+            txtDraftedDate.ReadOnly = true;
             txtDraftedDate.Size = new Size(712, 47);
             txtDraftedDate.TabIndex = 8;
             // 
@@ -200,6 +201,7 @@
             txtPublishedDate.Margin = new Padding(4);
             txtPublishedDate.Multiline = true;
             txtPublishedDate.Name = "txtPublishedDate";
+            txtPublishedDate.ReadOnly = true;
             txtPublishedDate.Size = new Size(712, 47);
             txtPublishedDate.TabIndex = 9;
             // 
@@ -210,6 +212,7 @@
             txtArchivedDate.Margin = new Padding(4);
             txtArchivedDate.Multiline = true;
             txtArchivedDate.Name = "txtArchivedDate";
+            txtArchivedDate.ReadOnly = true;
             txtArchivedDate.Size = new Size(712, 47);
             txtArchivedDate.TabIndex = 10;
             // 

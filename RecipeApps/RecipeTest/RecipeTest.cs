@@ -127,9 +127,9 @@ namespace RecipeTest
         public void DeleteRecipeArchivedMoreThan30DaysOrDrafted()
         {
             string sql = @"
-select top 1 r.recipeid, r.recipename from Recipe r 
-where r.CurrentStatus = 'Drafted' 
-or  DATEDIFF(day, r.ArchivedDate, CURRENT_TIMESTAMP) > 30
+select top 1  r.recipeid, r.recipename
+from Recipe r
+where (r.CurrentStatus <> 'Drafted' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TIMESTAMP) <= 30)
 ";
             DataTable dt = SQLUtility.GetDataTable(sql);
             int recipeid = 0;
