@@ -3,8 +3,12 @@ as
 begin 
     select @RecipeName = nullif(@RecipeName, '')
     select r.recipeid, r.CuisineId, r.UsersId, r.recipename, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Calories, r.CurrentStatus, r.RecipePic,
-   RecipeDesc = dbo.RecipeDesc(r.recipeid), RecipeCaloriesTotals = dbo.RecipeCaloriesTotals(r.recipeid)
+   RecipeDesc = dbo.RecipeDesc(r.recipeid), MealCaloriesTotals = dbo.MealCaloriesTotals(mc.mealid)
     from recipe r
+    join mealcourserecipe mcr
+    on mcr.recipeid = r.recipeid 
+    join mealcourse mc 
+    on mc.mealcourseid = mcr.mealcourseid
     where r.RecipeId = @RecipeId
     or @All = 1
     or r.RecipeName like '%' + @RecipeName +'%'
