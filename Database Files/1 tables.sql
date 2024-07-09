@@ -49,7 +49,7 @@ create table dbo.Recipe(
     UsersId int not null constraint f_Recipe_Users foreign key references Users(UsersId),
     RecipeName varchar (200) not null constraint ck_RecipeName_cannot_be_blank check (RecipeName <> '')
                                       constraint u_RecipeName unique,
-    DraftedDate datetime not null constraint ck_DraftedDate_cannot_be_future_date check (DraftedDate <= getdate()),
+    DraftedDate datetime not null constraint ck_DraftedDate_cannot_be_future_date check (DraftedDate <= getdate()) default getdate(),
     PublishedDate datetime  constraint ck_PublishedDate_cannot_be_future_date check (PublishedDate <= getdate()),
     ArchivedDate datetime constraint ck_ArchivedDate_cannot_be_future_date check(ArchivedDate <= getdate()),
     Calories int not null constraint ck_Calories_must_be_greater_than_or_equal_to_0 check (Calories >= 0),

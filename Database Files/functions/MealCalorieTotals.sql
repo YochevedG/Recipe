@@ -1,5 +1,5 @@
 create or alter function dbo.MealCaloriesTotals(@MealId int)
-returns varchar(250)
+returns int
 as 
 begin 
     declare @value varchar (250) = ''

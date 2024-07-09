@@ -3,7 +3,7 @@ create or alter procedure dbo.RecipeUpdate(
     @cuisineId int,
     @UsersId int,
     @RecipeName varchar (100),
-    @DraftedDate datetime2 = '1/1/2020' output,
+    @DraftedDate datetime2 output,
     @Calories int output,
     @Message varchar (500) = '' output
 )
@@ -16,8 +16,8 @@ select @RecipeId = isnull(@RecipeId, 0)
 if @RecipeId = 0
 begin 
 
-    insert Recipe(CuisineId, UsersId, RecipeName, DraftedDate, Calories)
-    values(@cuisineId, @UsersId, @RecipeName, @DraftedDate, @Calories)
+    insert Recipe(CuisineId, UsersId, RecipeName,  Calories)
+    values(@cuisineId, @UsersId, @RecipeName,  @Calories)
 
     select @recipeid = scope_identity()
 end 
@@ -28,7 +28,6 @@ begin
     CuisineId= @cuisineid,
     UsersId = @Usersid,
     RecipeName = @RecipeName,
-    DraftedDate = @DraftedDate,
     Calories = @Calories
     where RecipeId = @RecipeId
 end 
