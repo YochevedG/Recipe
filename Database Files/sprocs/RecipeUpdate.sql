@@ -3,7 +3,6 @@ create or alter procedure dbo.RecipeUpdate(
     @cuisineId int,
     @UsersId int,
     @RecipeName varchar (100),
-    @DraftedDate datetime2 output,
     @Calories int output,
     @Message varchar (500) = '' output
 )

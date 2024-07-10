@@ -13,4 +13,3 @@ on c.cuisineType = x.CuisineName
 join Users u 
 on u.FirstName = x.FirstName
 and u.LastName = x.LastName
-
