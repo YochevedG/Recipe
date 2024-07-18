@@ -5,7 +5,7 @@ create or alter procedure dbo.RecipeDelete(
 as
 begin 
 declare @return int = 0 
-if exists(select * from Recipe r where (r.CurrentStatus <> 'Drafted' and  DATEDIFF(day, r.ArchivedDate, CURRENT_TIMESTAMP) <= 30) and r.RecipeId = @RecipeId)
+if exists(select * from Recipe r where (r.CurrentStatus = 'Published' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TIMESTAMP) <= 30) and r.RecipeId = @RecipeId)
 begin 
 select @return = 1, @Message = 'A user can only delete a recipe if the recipe is archived for over 30 days or is currently drafted'
     goto finished
