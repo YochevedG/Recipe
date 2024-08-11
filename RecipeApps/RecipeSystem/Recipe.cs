@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Diagnostics;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace RecipeSystem
 {
@@ -19,7 +17,17 @@ namespace RecipeSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
-            cmd.Parameters["@RecipeId"].Value = recipeid;
+            SQLUtility.SetParamValue(cmd, "@RecipeId", recipeid);
+            dt = SQLUtility.GetDataTable(cmd);
+            return dt;
+        }
+
+        public static DataTable GetRecipeList()
+        {
+            DataTable dt = new();
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
+            SQLUtility.SetParamValue(cmd, "@All", 1);
+            SQLUtility.SetParamValue(cmd, "@IncludeBlank", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -28,7 +36,7 @@ namespace RecipeSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("CuisineGet");
-            cmd.Parameters["@All"].Value = 1;
+            SQLUtility.SetParamValue(cmd, "@All", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -37,7 +45,8 @@ namespace RecipeSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("UsersGet");
-            cmd.Parameters["@All"].Value = 1;
+            SQLUtility.SetParamValue(cmd, "@All", 1);
+            SQLUtility.SetParamValue(cmd, "@IncludeBlank", 1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -54,10 +63,36 @@ namespace RecipeSystem
 
         public static void Delete(DataTable dtrecipe)
         {
-            int id = (int)dtrecipe.Rows[0]["Recipeid"];
+            int id = (int)dtrecipe.Rows[0]["RecipeId"];
             SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeDelete");
             SQLUtility.SetParamValue(cmd, "@RecipeId", id);
             SQLUtility.ExecuteSQL(cmd);
         }
+
+        public static void CloneRecipe(int newrecipeid, int recipeid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeClone");
+            SQLUtility.SetParamValue(cmd, "@RecipeId", recipeid);
+            SQLUtility.SetParamValue(cmd, "@NewRecipeId",newrecipeid);
+            SQLUtility.ExecuteSQL(cmd);
+            
+        }
+
+        public static void GetRecipeStatus(int recipeid)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("StatusGet");
+            SQLUtility.SetParamValue(cmd, "@StatusId", recipeid);
+            SQLUtility.ExecuteSQL(cmd);
+        }
+
+        public static void ChangeRecipeStatus(int recipeid, string newstatus)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("ChangeRecipeStatus");
+            cmd.CommandType = CommandType.StoredProcedure;
+            SQLUtility.SetParamValue(cmd, "@RecipeId", recipeid);
+            SQLUtility.SetParamValue(cmd, "@NewStatus", newstatus);
+            SQLUtility.ExecuteSQL(cmd);
+        }
+
     }
 }

@@ -59,8 +59,8 @@ create table dbo.Recipe(
     when ArchivedDate is null and PublishedDate is null then 'Drafted'
     end
     persisted,
-    RecipePic as concat('Recipe_',replace(Recipename, ' ', '_'),'.jpg') persisted,
-    constraint ck_PublishedDate_must_be_after_drafteddate_or_publisheddate check (DraftedDate<= PublishedDate and isnull(PublishedDate, DraftedDate) <= ArchivedDate )
+    RecipePic as concat('Recipe_',replace(Recipename, ' ', '_'),'.jpg') persisted
+   -- constraint ck_PublishedDate_must_be_after_drafteddate_or_publisheddate check (DraftedDate<= PublishedDate and isnull(PublishedDate, DraftedDate) <= ArchivedDate )
 )
 go 
 
