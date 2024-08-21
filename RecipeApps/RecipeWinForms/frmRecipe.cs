@@ -47,10 +47,10 @@ namespace RecipeWinForms
             lstCuisine.DisplayMember = "CuisineType";
             lstCuisine.DataBindings.Add("SelectedValue", dtrecipe, "cuisineid");
 
-            lstUser.DataSource = dtusers;
-            lstUser.ValueMember = "UsersId";
-            lstUser.DisplayMember = "LastName";
-            lstUser.DataBindings.Add("SelectedValue", dtrecipe, "usersid");
+            lstUsers.DataSource = dtusers;
+            lstUsers.ValueMember = "UsersId";
+            lstUsers.DisplayMember = "LastName";
+            lstUsers.DataBindings.Add("SelectedValue", dtrecipe, "usersid");
 
             WindowsFormsUtility.SetControlBinding(txtRecipeName, bindsource);
             WindowsFormsUtility.SetControlBinding(txtDraftedDate, bindsource);

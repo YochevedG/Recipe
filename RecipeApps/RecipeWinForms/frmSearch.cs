@@ -10,10 +10,10 @@ namespace RecipeWinForms
         public frmSearch()
         {
             InitializeComponent();
-            btnSearch.Click += BtnSearch_Click;
             gRecipe.CellDoubleClick += GRecipe_CellDoubleClick;
             btnNew.Click += BtnNew_Click;
             gRecipe.KeyDown += GRecipe_KeyDown;
+            LoadForm();
         }
 
 
@@ -26,10 +26,10 @@ namespace RecipeWinForms
         }
 
 
-        private void SearchRecipe(string recipename)
+        private void SearchRecipe()
         {
             WindowsFormsUtility.FormatGridForSearchResults(gRecipe, "Recipe");
-            DataTable dt = Recipe.SearchRecipe(recipename);
+            DataTable dt = Recipe.GetRecipeList();
             gRecipe.DataSource = dt;
             gRecipe.Columns["RecipeId"].Visible = false;
             gRecipe.Columns["CuisineId"].Visible = false;
@@ -42,6 +42,10 @@ namespace RecipeWinForms
             gRecipe.Columns["RecipePic"].Visible = false;
         }
 
+        private void LoadForm()
+        {
+            SearchRecipe();
+        }
 
         private void ShowRecipeForm(int rowindex)
         {
@@ -49,6 +53,7 @@ namespace RecipeWinForms
             if(rowindex > -1)
             {
                 id = WindowsFormsUtility.GetIdFromGrid(gRecipe, rowindex, "RecipeId");
+                
             }
             if(this.MdiParent != null && this.MdiParent is frmMain)
             {
@@ -70,7 +75,7 @@ namespace RecipeWinForms
 
         private void BtnSearch_Click(object? sender, EventArgs e)
         {
-            SearchRecipe(txtSearch.Text);
+            //SearchRecipe(txtSearch.Text);
         }
 
         private void BtnNew_Click(object? sender, EventArgs e)

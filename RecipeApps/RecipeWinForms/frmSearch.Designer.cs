@@ -28,17 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            gRecipe = new DataGridView();
             tblMain = new TableLayoutPanel();
             tblSearch = new TableLayoutPanel();
-            lblRecipeName = new Label();
-            txtSearch = new TextBox();
-            btnSearch = new Button();
             btnNew = new Button();
-            gRecipe = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)gRecipe).BeginInit();
             tblMain.SuspendLayout();
             tblSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gRecipe).BeginInit();
             SuspendLayout();
+            // 
+            // gRecipe
+            // 
+            gRecipe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gRecipe.Dock = DockStyle.Fill;
+            gRecipe.Location = new Point(3, 61);
+            gRecipe.Name = "gRecipe";
+            gRecipe.RowHeadersWidth = 62;
+            gRecipe.Size = new Size(996, 521);
+            gRecipe.TabIndex = 1;
             // 
             // tblMain
             // 
@@ -63,9 +70,6 @@
             tblSearch.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tblSearch.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tblSearch.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tblSearch.Controls.Add(lblRecipeName, 0, 0);
-            tblSearch.Controls.Add(txtSearch, 1, 0);
-            tblSearch.Controls.Add(btnSearch, 2, 0);
             tblSearch.Controls.Add(btnNew, 3, 0);
             tblSearch.Dock = DockStyle.Fill;
             tblSearch.Location = new Point(3, 3);
@@ -74,36 +78,6 @@
             tblSearch.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblSearch.Size = new Size(996, 52);
             tblSearch.TabIndex = 0;
-            // 
-            // lblRecipeName
-            // 
-            lblRecipeName.AutoSize = true;
-            lblRecipeName.Dock = DockStyle.Fill;
-            lblRecipeName.Location = new Point(3, 0);
-            lblRecipeName.Name = "lblRecipeName";
-            lblRecipeName.Size = new Size(243, 52);
-            lblRecipeName.TabIndex = 0;
-            lblRecipeName.Text = "Recipe Name";
-            lblRecipeName.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // txtSearch
-            // 
-            txtSearch.Dock = DockStyle.Fill;
-            txtSearch.Location = new Point(252, 3);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(243, 39);
-            txtSearch.TabIndex = 1;
-            // 
-            // btnSearch
-            // 
-            btnSearch.BackColor = Color.WhiteSmoke;
-            btnSearch.Dock = DockStyle.Fill;
-            btnSearch.Location = new Point(501, 3);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(243, 46);
-            btnSearch.TabIndex = 2;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = false;
             // 
             // btnNew
             // 
@@ -115,16 +89,6 @@
             btnNew.Text = "New";
             btnNew.UseVisualStyleBackColor = true;
             // 
-            // gRecipe
-            // 
-            gRecipe.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gRecipe.Dock = DockStyle.Fill;
-            gRecipe.Location = new Point(3, 61);
-            gRecipe.Name = "gRecipe";
-            gRecipe.RowHeadersWidth = 62;
-            gRecipe.Size = new Size(996, 521);
-            gRecipe.TabIndex = 1;
-            // 
             // frmSearch
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -135,22 +99,18 @@
             Margin = new Padding(4);
             Name = "frmSearch";
             Text = "Recipe Search";
+            ((System.ComponentModel.ISupportInitialize)gRecipe).EndInit();
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
             tblSearch.ResumeLayout(false);
-            tblSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)gRecipe).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
+        private DataGridView gRecipe;
         private TableLayoutPanel tblMain;
         private TableLayoutPanel tblSearch;
-        private Label lblRecipeName;
-        private TextBox txtSearch;
-        private Button btnSearch;
-        private DataGridView gRecipe;
         private Button btnNew;
     }
 }
