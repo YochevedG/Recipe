@@ -6,13 +6,13 @@ namespace RecipeTest
 {
     public class RecipeTest
     {
-        string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
+        //string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
         string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
 
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString(connstring,true);
+            DBManager.SetConnectionString(testconnstring,true);
         }
 
         private DataTable GetDataTable(string sql)
@@ -20,7 +20,7 @@ namespace RecipeTest
             DataTable dt = new DataTable();
             DBManager.SetConnectionString(testconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
-            DBManager.SetConnectionString(connstring, false);
+            DBManager.SetConnectionString(testconnstring, false);
             return dt;
         }
 
@@ -29,7 +29,7 @@ namespace RecipeTest
             int n = 0;
             DBManager.SetConnectionString(testconnstring, false);
             n = SQLUtility.GetFirstRowValue(sql);
-            DBManager.SetConnectionString(connstring, false);
+            DBManager.SetConnectionString(testconnstring, false);
             return n;
         }
 
@@ -37,7 +37,7 @@ namespace RecipeTest
         {
             DBManager.SetConnectionString(testconnstring, false);
             SQLUtility.ExecuteSQL(sql);
-            DBManager.SetConnectionString(connstring, false);
+            DBManager.SetConnectionString(testconnstring, false);
         }
 
         [Test]
