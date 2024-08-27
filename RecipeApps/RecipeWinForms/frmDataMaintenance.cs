@@ -23,12 +23,12 @@
             dtlist = DataMaintenence.GetDataList(currenttabletype.ToString());
             gData.Columns.Clear();
             gData.DataSource = dtlist;
-            switch (tabletype)
-            {
-                case TableTypeEnum.Measurement:
-                    WindowsFormsUtility.AddComboBoxToGrid(gData, DataMaintenence.GetDataList(TableTypeEnum.Measurement.ToString()), "RecipeIngredient", "MeasurementAmount");
-                    break;
-            }
+            //switch (tabletype)
+            //{
+            //    case TableTypeEnum.Measurement:
+            //        WindowsFormsUtility.AddComboBoxToGrid(gData, DataMaintenence.GetDataList(TableTypeEnum.Measurement.ToString()), "MeasurementType", "MeasurementType");
+            //        break;
+            //}
             DataGridViewButtonColumn col = new();
 
             WindowsFormsUtility.AddDeleteButtonToGrid(gData, deletecolumnname);

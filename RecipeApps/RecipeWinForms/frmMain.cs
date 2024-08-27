@@ -19,8 +19,6 @@
             this.Shown += FrmMain_Shown;
         }
 
-       
-
         private void FrmMain_Shown(object? sender, EventArgs e)
         {
             frmLogin f = new() { StartPosition = FormStartPosition.CenterParent }; 

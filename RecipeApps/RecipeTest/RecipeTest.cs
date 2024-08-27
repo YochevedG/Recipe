@@ -7,37 +7,37 @@ namespace RecipeTest
     public class RecipeTest
     {
         //string connstring = ConfigurationManager.ConnectionStrings["devconn"].ConnectionString;
-        string testconnstring = ConfigurationManager.ConnectionStrings["unittestconn"].ConnectionString;
+        string liveconnstring = ConfigurationManager.ConnectionStrings["liveconn"].ConnectionString;
 
         [SetUp]
         public void Setup()
         {
-            DBManager.SetConnectionString(testconnstring,true);
+            DBManager.SetConnectionString(liveconnstring,true);
         }
 
         private DataTable GetDataTable(string sql)
         {
             DataTable dt = new DataTable();
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconnstring, false);
             dt = SQLUtility.GetDataTable(sql);
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconnstring, false);
             return dt;
         }
 
         private int GetFirstRowValue(string sql)
         {
             int n = 0;
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconnstring, false);
             n = SQLUtility.GetFirstRowValue(sql);
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconnstring, false);
             return n;
         }
 
         private void ExecuteSQL(string sql)
         {
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconnstring, false);
             SQLUtility.ExecuteSQL(sql);
-            DBManager.SetConnectionString(testconnstring, false);
+            DBManager.SetConnectionString(liveconnstring, false);
         }
 
         [Test]

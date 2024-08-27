@@ -18,9 +18,14 @@ namespace RecipeWinForms
             btnDelete.Click += BtnDelete_Click;
             btnSaveRecipe.Click += BtnSaveRecipe_Click;
             gData.CellContentClick += GData_CellContentClick;
+            gData.DataError += GData_DataError;
             this.Shown += FrmNewCookbook_Shown;
         }
 
+        private void GData_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Wrong Data Type", Application.ProductName);
+        }
 
         private void FrmNewCookbook_Shown(object? sender, EventArgs e)
         {

@@ -29,7 +29,7 @@ namespace RecipeWinForms
                 if (this.MdiParent != null && this.MdiParent is frmMain)
                 {
                     Cookbooks.AutoCreateCookbook(usersid);
-                    ((frmMain)this.MdiParent).OpenForm(typeof(frmNewCookbook));
+                    ((frmMain)this.MdiParent).OpenForm(typeof(frmNewCookbook),usersid);
                     this.Close();
                 }
             }

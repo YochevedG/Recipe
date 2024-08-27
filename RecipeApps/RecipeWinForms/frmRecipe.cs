@@ -21,9 +21,20 @@ namespace RecipeWinForms
             gIngredient.CellContentClick += GIngredient_CellContentClick;
             gSteps.CellContentClick += GSteps_CellContentClick;
             btnChangeStatus.Click += BtnChangeStatus_Click;
+            gIngredient.DataError += GIngredient_DataError;
+            gSteps.DataError += GSteps_DataError;
             this.Shown += FrmRecipe_Shown;
         }
 
+        private void GSteps_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Wrong Data Type", Application.ProductName);
+        }
+
+        private void GIngredient_DataError(object? sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Wrong Data Type", Application.ProductName);
+        }
 
         private void FrmRecipe_Shown(object? sender, EventArgs e)
         {

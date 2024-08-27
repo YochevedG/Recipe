@@ -43,3 +43,4 @@ grant execute on ChangeRecipeStatus to testrole
 grant execute on ChangeRecipeStatusToPublished to testrole
 grant execute on ChangeRecipeStatusToArchived to testrole
 grant execute on ChangeRecipeStatusToDrafted to testrole
+grant execute on UsersUpdate to testrole

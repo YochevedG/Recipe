@@ -16,6 +16,7 @@ begin
     or @All = 1
     union SELECT 0, ' '
     where @IncludeBlank = 1
+    order by i.IngredientName
 
     return @return
 end 

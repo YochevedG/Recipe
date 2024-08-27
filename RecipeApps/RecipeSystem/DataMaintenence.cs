@@ -33,7 +33,7 @@ namespace RecipeSystem
 
         public static DataTable GetDashboard()
         {
-            SqlCommand cmd = SQLUtility.GetSQLCommand("DasboardGet");
+            SqlCommand cmd = SQLUtility.GetSQLCommand("DashboardGet");
             return SQLUtility.GetDataTable(cmd);
         }
     }
