@@ -119,15 +119,7 @@ namespace RecipeWinForms
         {
             try
             {
-                var response = MessageBox.Show($"Would you like to save changes to {this.Text} before closing?", Application.ProductName, MessageBoxButtons.YesNoCancel);
-                if(response == DialogResult.No)
-                {
-                    return;
-                }
-                if(response == DialogResult.Yes)
-                {
                      CookbookRecipe.SaveTable(dtcookbookrecipe, cookbookid);
-                }
             }
             catch (Exception ex)
             {

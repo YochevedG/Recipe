@@ -40,6 +40,7 @@ namespace RecipeWinForms
         private void FrmCookbookList_Activated(object? sender, EventArgs e)
         {
             BindData();
+            gDataCookbook.Columns["ActiveInactive"].Visible = false;
         }
 
         private void BindData()

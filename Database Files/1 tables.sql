@@ -111,7 +111,7 @@ create table dbo.Meal(
     MealName varchar (200) not null constraint ck_MealName_cannot_be_blank check (MealName <> '')
                                     constraint u_MealName unique,
     ActiveInactive bit not null default 1,
-    DateCreated datetime not null default GETDATE() constraint ck_date_created_cannot_be_future_date check (DateCreated <= getdate()),
+    DateCreated date not null default GETDATE() constraint ck_date_created_cannot_be_future_date check (DateCreated <= getdate()),
     MealPic as concat('Meal_',replace(Mealname, ' ', '_'),'.jpg') persisted
 )
 go 
@@ -142,7 +142,7 @@ create table dbo.Cookbook(
                                        constraint u_CookbookName unique,
     Price decimal (7,2) not null constraint ck_Price_must_be_greater_than_0 check (Price > 0),
     ActiveInactive bit not null default 1,
-    DateCreated datetime not null default GETDATE() constraint ck_date_created_cannot_be_a_future_date check (DateCreated <= getdate()),
+    DateCreated date not null default GETDATE() constraint ck_date_created_cannot_be_a_future_date check (DateCreated <= getdate()),
     CookbookPic as concat('Cookbook_',replace(Cookbookname, ' ', '_'),'.jpg') persisted
 )
 go 

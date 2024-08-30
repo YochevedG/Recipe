@@ -1,4 +1,5 @@
 ﻿using RecipeSystem;
+using System.Data.SqlClient;
 
 namespace RecipeWinForms
 {
@@ -23,16 +24,28 @@ namespace RecipeWinForms
         private void CreateCookbook()
         {
             int usersid = WindowsFormsUtility.GetIdFromComboBox(lstUsers);
+            int cookbookid = 0;
             Cursor = Cursors.WaitCursor;
             try
             {
-                if (this.MdiParent != null && this.MdiParent is frmMain)
+                SqlCommand cmd = SQLUtility.GetSQLCommand("CookbookAutoCreate");
+                SQLUtility.SetParamValue(cmd, "@UsersId", usersid);
+                SQLUtility.SetParamValue(cmd, "@CookbookId", DBNull.Value);
+                SQLUtility.ExecuteSQL(cmd);
+
+                cookbookid = (int)cmd.Parameters["@CookbookId"].Value;
+
+                if (cookbookid > 0)
                 {
-                    Cookbooks.AutoCreateCookbook(usersid);
-                    ((frmMain)this.MdiParent).OpenForm(typeof(frmNewCookbook),usersid);
-                    this.Close();
+
+                    if (this.MdiParent != null && this.MdiParent is frmMain)
+                    {
+                        ((frmMain)this.MdiParent).OpenForm(typeof(frmNewCookbook), cookbookid);
+                        this.Close();
+                    }
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, Application.ProductName);
