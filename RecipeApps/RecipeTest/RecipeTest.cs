@@ -88,7 +88,8 @@ namespace RecipeTest
 
             DataTable dt = Recipe.Load(recipeid);
             dt.Rows[0]["calories"] = calories;
-            Recipe.Save(dt);
+            BizRecipe recipe = new();
+            recipe.Save(dt);
 
             int newcalories = GetFirstRowValue("select calories from recipe where recipeid = " + recipeid);
             Assert.IsTrue(newcalories == calories, "calories for recipe (" + recipeid + ") = " + newcalories);
@@ -145,6 +146,7 @@ namespace RecipeTest
             Assume.That(recipeid > 0, "no recipes without related info order in DB, cant run test");
             TestContext.WriteLine("exsisting recipe without related info = " + recipeid + " " + recipedesc);
             TestContext.WriteLine("Ensure that app can delete this " + recipeid);
+            
             Recipe.Delete(dt);
 
             DataTable dtafterdelete = GetDataTable("select * from recipe where recipeid = " + recipeid);
@@ -189,8 +191,8 @@ where r.CurrentStatus = 'Published' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TI
             Assume.That(recipeid > 0, "no recipes with related info order in DB, cant run test");
             TestContext.WriteLine("exsisting recipe with related info = " + recipeid + " " + recipedesc);
             TestContext.WriteLine("Ensure that app cannot delete this " + recipeid);
-
-            Exception ex = Assert.Throws<Exception>(() => Recipe.Delete(dt));
+            BizRecipe recipe = new();
+            Exception ex = Assert.Throws<Exception>(() => recipe.Delete(dt));
             TestContext.WriteLine(ex.Message);
         }
 
@@ -203,7 +205,8 @@ where r.CurrentStatus = 'Published' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TI
             TestContext.WriteLine("Exsisting recipe with id = " + recipeid);
             TestContext.WriteLine("ensure that app loads recipe " + recipeid);
 
-            DataTable dt = Recipe.Load(recipeid);
+            BizRecipe recipe = new();
+            DataTable dt = recipe.Load(recipeid);
 
             int loadedid = (int)dt.Rows[0]["recipeid"];
             Assert.IsTrue(loadedid == recipeid, dt.Rows[0]["recipeid"] + " <> " + recipeid);
