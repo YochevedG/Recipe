@@ -271,6 +271,35 @@ where r.CurrentStatus = 'Published' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TI
             TestContext.WriteLine("Number of rows in Cuisine returned by app = " + dt.Rows.Count);
         }
 
+        [Test]
+        public void GetListOfIngredients()
+        {
+            int ingcount = GetFirstRowValue("select total = count (*) from ingredient");
+            Assume.That(ingcount > 0, "no ingredients in db, cant test");
+
+            TestContext.WriteLine("Num of Ingredients in DB = " + ingcount);
+            TestContext.WriteLine("ensure that num of rows return by app matches " + ingcount);
+
+            BizIngredient i = new();
+            var lst = i.GetList();
+
+            Assert.IsTrue(lst.Count == ingcount, "Num rows returned by app (" + lst.Count + ") <> " + ingcount);
+            TestContext.WriteLine("Number of rows in Parties returned by app = " + lst.Count);
+        }
+
+        [Test]
+        public void SearchIngredients()
+        {
+            string ingname = "e";
+            int ingcount = GetFirstRowValue($"select total = count(*) from ingredient where ingredientname like '%{ingname}%'");
+            TestContext.WriteLine("Num of search results in DB = " + ingcount);
+            TestContext.WriteLine("Ensure that num of rows return by app matches " + ingcount);
+            BizIngredient i = new();
+            List<BizIngredient> lst = i.Search(ingname);
+            Assert.IsTrue(lst.Count == ingcount, "num rows returned by search (" + lst.Count + ") <> " + ingcount);
+            TestContext.WriteLine("Number of rows in search results return by app = " + lst.Count);
+        }
+
         private int GetExsistingRecipeID()
         {
             return GetFirstRowValue("select top 1 recipeid from recipe");

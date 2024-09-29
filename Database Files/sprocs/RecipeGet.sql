@@ -15,7 +15,7 @@ begin
     on ri.RecipeId = r.RecipeId
     where r.RecipeId = @RecipeId
     or @All = 1
-    --or r.RecipeName like '%' + @RecipeName +'%'
+    or r.RecipeName like '%' + @RecipeName +'%'
     group by r.recipeId, r.CuisineId, r.UsersId, r.recipename, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Calories, r.CurrentStatus, r.RecipePic, u.LastName, dbo.MealCaloriesTotals(mc.mealid),dbo.RecipeDesc(r.recipeid)
     union select 0, 0, 0, '', '', '', '', 0, '', '', '', 0, '', 0
     where @IncludeBlank = 1
