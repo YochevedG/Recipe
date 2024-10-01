@@ -1,6 +1,7 @@
 using CPUFramework;
 using System.Data;
 using System.Configuration;
+using Microsoft.Identity.Client;
 
 namespace RecipeTest
 {
@@ -237,10 +238,14 @@ where r.CurrentStatus = 'Published' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TI
             TestContext.WriteLine(num + "recipes that match " + criteria);
             TestContext.WriteLine("ensure that recipe search returns " + num + "rows");
 
-            DataTable dt = Recipe.SearchRecipe(criteria);
-            int results = dt.Rows.Count;
-            Assert.IsTrue(results == num, "results of recipe search does not match number of recipes, " + results + " <> " + num);
-            TestContext.WriteLine("Number of rows returned by recipe search is " + results);
+            //DataTable dt = Recipe.SearchRecipe(criteria);
+            //int results = dt.Rows.Count;
+            //Assert.IsTrue(results == num, "results of recipe search does not match number of recipes, " + results + " <> " + num);
+            //TestContext.WriteLine("Number of rows returned by recipe search is " + results);
+            BizRecipe r = new();
+            List<BizRecipe> lst = r.Search(criteria);
+            Assert.IsTrue(lst.Count == num, "num rows returned by search (" + lst.Count + ") <> " + num);
+            TestContext.WriteLine("Number of rows in search results return by app = " + lst.Count);
         }
 
         [Test]
@@ -284,7 +289,23 @@ where r.CurrentStatus = 'Published' or  DATEDIFF(day, r.ArchivedDate, CURRENT_TI
             var lst = i.GetList();
 
             Assert.IsTrue(lst.Count == ingcount, "Num rows returned by app (" + lst.Count + ") <> " + ingcount);
-            TestContext.WriteLine("Number of rows in Parties returned by app = " + lst.Count);
+            TestContext.WriteLine("Number of rows in Ingredients returned by app = " + lst.Count);
+        }
+
+        [Test]
+        public void GetListOfRecipe()
+        {
+            int recipecount = GetFirstRowValue("select total = count (*) from recipe");
+            Assume.That(recipecount > 0, "no recipe in db, cant test");
+
+            TestContext.WriteLine("Num of recipes in DB = " + recipecount);
+            TestContext.WriteLine("ensure that num of rows return by app matches " + recipecount);
+
+            BizRecipe i = new();
+            var lst = i.GetList();
+
+            Assert.IsTrue(lst.Count == recipecount, "Num rows returned by app (" + lst.Count + ") <> " + recipecount);
+            TestContext.WriteLine("Number of rows in Recipe returned by app = " + lst.Count);
         }
 
         [Test]

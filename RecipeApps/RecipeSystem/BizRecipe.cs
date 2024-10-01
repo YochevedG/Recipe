@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace RecipeSystem
 {
@@ -21,6 +22,14 @@ namespace RecipeSystem
         private DateTime? _publisheddate;
         private DateTime? _archiveddate;
         private int _calories;
+
+        public List<BizRecipe> Search(string recipenameval)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
+            SQLUtility.SetParamValue(cmd, "RecipeName", recipenameval);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
 
         public int RecipeId
         {
