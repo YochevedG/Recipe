@@ -6,7 +6,7 @@ create or alter proc dbo.CookbookGet(
 as 
 begin 
     select @cookbookname = nullif(@cookbookname, '')
-    select c.cookbookId, c.UsersId, c.CookbookName, Author = concat(u.firstname, ' ',  u.lastname), NumRecipes = count(r.RecipeId), c.price, c.DateCreated, c.ActiveInactive
+    select c.cookbookId, c.UsersId, c.CookbookName, Author = concat(u.firstname, ' ',  u.lastname), NumRecipes = count(r.RecipeId), c.price, c.DateCreated, c.ActiveInactive, c.CookbookSkill,c.CookbookDesc
     from cookbook c 
     left join users u 
     on u.UsersId = c.UsersId
@@ -16,7 +16,7 @@ begin
     on r.RecipeId = cr.RecipeId
     where c.CookbookId = @CookbookId
     or @All = 1 
-    group by  c.UsersId, u.firstname, u.lastname, c.cookbookId, c.CookbookName, c.price,c.DateCreated, c.ActiveInactive
+    group by  c.UsersId, u.firstname, u.lastname, c.cookbookId, c.CookbookName, c.price,c.DateCreated, c.ActiveInactive, c.CookbookSkill, c.CookbookDesc
     order by c.cookbookname
 end
 go

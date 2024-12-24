@@ -22,6 +22,12 @@ namespace RecipeSystem
         private DateTime? _publisheddate;
         private DateTime? _archiveddate;
         private int _calories;
+        private string _vegan;
+        private string _lastname;
+        private int _numingredients;
+        private string _currentstatus;
+        private List<BizRecipe> _lstrecipe;
+
 
         public List<BizRecipe> Search(string recipenameval)
         {
@@ -29,6 +35,18 @@ namespace RecipeSystem
             SQLUtility.SetParamValue(cmd, "RecipeName", recipenameval);
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
+        }
+
+        private List<BizRecipe> RecipeList
+        {
+            get
+            {
+                if (_lstrecipe == null)
+                {
+                    _lstrecipe = new BizRecipe().GetList(true);
+                }
+                return _lstrecipe;
+            }
         }
 
         public int RecipeId
@@ -130,6 +148,58 @@ namespace RecipeSystem
                 if (_calories != value)
                 {
                     _calories = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get { return _lastname; }
+            set
+            {
+                if (_lastname != value)
+                {
+                    _lastname = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string CurrentStatus
+        {
+            get { return _currentstatus; }
+            set
+            {
+                if (_currentstatus != value)
+                {
+                    _currentstatus = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public string Vegan
+        {
+            get { return _vegan; }
+            set
+            {
+                if (_vegan != value)
+                {
+                    _vegan = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        public int NumIngredients
+        {
+            get { return _numingredients; }
+            set
+            {
+                if (_numingredients != value)
+                {
+                    _numingredients = value;
                     InvokePropertyChanged();
                 }
             }

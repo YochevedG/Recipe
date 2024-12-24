@@ -3,9 +3,8 @@ as
 begin 
     select @RecipeName = nullif(@RecipeName, '')
     select  r.recipeId, r.CuisineId, r.UsersId, r.recipename, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Calories, r.CurrentStatus, r.RecipePic,
-   RecipeDesc = dbo.RecipeDesc(r.recipeid), 
    --MealCaloriesTotals = dbo.MealCaloriesTotals(mc.mealid), 
-   u.LastName, NumIngredients = count(ri.IngredientId)
+   u.LastName, NumIngredients = count(ri.IngredientId), r.Vegan
     from recipe r
     --left join mealcourserecipe mcr
    -- on mcr.recipeid = r.recipeid 
@@ -20,8 +19,8 @@ begin
     or r.RecipeName like '%' + @RecipeName +'%'
     group by r.recipeId, r.CuisineId, r.UsersId, r.recipename, r.DraftedDate, r.PublishedDate, r.ArchivedDate, r.Calories, r.CurrentStatus, r.RecipePic, u.LastName, 
     --dbo.MealCaloriesTotals(mc.mealid),
-    dbo.RecipeDesc(r.recipeid)
-    union select 0, 0, 0, '', '', '', '', 0, '', '', '', '', 0
+     r.Vegan
+    union select 0, 0, 0, '', '', '', '', 0, '', '', '', '', ''
     where @IncludeBlank = 1
     order by 1, r.CurrentStatus desc
 end
