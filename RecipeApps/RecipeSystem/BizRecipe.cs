@@ -26,15 +26,40 @@ namespace RecipeSystem
         private string _lastname;
         private int _numingredients;
         private string _currentstatus;
+        private string _cuisinetype;
         private List<BizRecipe> _lstrecipe;
+        private List<BizCuisine> _lstcuisine;
 
 
         public List<BizRecipe> Search(string recipenameval)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
-            SQLUtility.SetParamValue(cmd, "RecipeName", recipenameval);
+            SQLUtility.SetParamValue(cmd, "@RecipeName", recipenameval);
+
             DataTable dt = SQLUtility.GetDataTable(cmd);
             return this.GetListFromDataTable(dt);
+        }
+
+        public List<BizRecipe> SearchRecipes(int cuisineid, string recipename, string cuisinetype)
+        {
+            SqlCommand cmd = SQLUtility.GetSQLCommand("RecipeGet");
+            SQLUtility.SetParamValue(cmd, "@RecipeName", recipename);
+            SQLUtility.SetParamValue(cmd, "@CuisineId", cuisineid);
+            SQLUtility.SetParamValue(cmd, "@CuisineType", cuisinetype);
+            DataTable dt = SQLUtility.GetDataTable(cmd);
+            return this.GetListFromDataTable(dt);
+        }
+
+        private List<BizCuisine> CuisineList
+        {
+            get
+            {
+                if (_lstcuisine == null)
+                {
+                    _lstcuisine = new BizCuisine().GetList(true);
+                }
+                return _lstcuisine;
+            }
         }
 
         private List<BizRecipe> RecipeList
@@ -202,6 +227,28 @@ namespace RecipeSystem
                     _numingredients = value;
                     InvokePropertyChanged();
                 }
+            }
+        }
+        public string CuisineType
+        {
+            get { return _cuisinetype; }
+            set
+            {
+                if (_cuisinetype != value)
+                {
+                    _cuisinetype = value;
+                    InvokePropertyChanged();
+                }
+            }
+        }
+
+        private BizCuisine Cuisine
+        {
+            get => _lstcuisine?.FirstOrDefault(p => p.CuisineId == this.CuisineId);
+            set
+            {
+                this.CuisineId = value == null ? 0 : value.CuisineId;
+                InvokePropertyChanged();
             }
         }
     }

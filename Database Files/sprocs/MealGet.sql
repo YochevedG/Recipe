@@ -20,5 +20,5 @@ end
 go  
 
 --exec MealGet @all = 1
---exec CookbookGet @all = 1
+--exec CookbookrecipeGet @all = 1
 --exec recipeget @all = 1

@@ -26,7 +26,7 @@ namespace RecipeSystem
         private List<BizCookbook> _lstcookbook;
 
 
-        public List<BizCookbook> Search(string cookbooknameval)
+        public List<BizCookbook> Search(int recipeid,string cookbooknameval)
         {
             SqlCommand cmd = SQLUtility.GetSQLCommand(this.GetSprocName);
             SQLUtility.SetParamValue(cmd, "CookbookName", cookbooknameval);
