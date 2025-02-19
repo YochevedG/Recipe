@@ -27,7 +27,12 @@ export default function SideBar({ onCuisineSelected }: Props) {
     }
     return (
         <>
-            <h2>{cusinelist.map(p => <CuisineButton key={p.cuisineId} cuisine={p} onSelected={handleSelectedCuisine} isSelected={p.cuisineId == selectedCuisineId} />)}</h2>
+            {cusinelist.map(p =>
+                <div key={p.cuisineId}>
+                    <CuisineButton key={p.cuisineId} cuisine={p} onSelected={handleSelectedCuisine} isSelected={p.cuisineId == selectedCuisineId} />
+                    {/* <button onClick={() => onRecipeSelectedForEdit} className="btn btn-outline-primary">Edit</button> */}
+                </div>
+            )}
         </>
     )
 }

@@ -21,3 +21,5 @@ select top 1@id = c.cuisineid from cuisine c
 
 exec CuisineGet @CuisineId = @id
 */
+--exec recipeget @all = 1
+--delete recipe where recipeid = (select top 1 recipeid from recipe order by recipeid desc)

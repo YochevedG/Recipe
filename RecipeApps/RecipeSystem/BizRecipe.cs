@@ -20,13 +20,13 @@ namespace RecipeSystem
         private string _recipename = "";
         private DateTime _drafteddate;
         private DateTime? _publisheddate;
-        private DateTime? _archiveddate;
+        //private DateTime? _archiveddate;
         private int _calories;
         private string _vegan;
-        private string _lastname;
-        private int _numingredients;
-        private string _currentstatus;
-        private string _cuisinetype;
+        //private string _lastname;
+        //private int _numingredients;
+        //private string _currentstatus;
+        //private string _cuisinetype;
         private List<BizRecipe> _lstrecipe;
         private List<BizCuisine> _lstcuisine;
 
@@ -152,18 +152,18 @@ namespace RecipeSystem
             }
         }
 
-        public DateTime? ArchivedDate
-        {
-            get { return _archiveddate; }
-            set
-            {
-                if (_archiveddate != value)
-                {
-                    _archiveddate = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public DateTime? ArchivedDate
+        //{
+        //    get { return _archiveddate; }
+        //    set
+        //    {
+        //        if (_archiveddate != value)
+        //        {
+        //            _archiveddate = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
 
         public int Calories
         {
@@ -178,31 +178,31 @@ namespace RecipeSystem
             }
         }
 
-        public string LastName
-        {
-            get { return _lastname; }
-            set
-            {
-                if (_lastname != value)
-                {
-                    _lastname = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public string LastName
+        //{
+        //    get { return _lastname; }
+        //    set
+        //    {
+        //        if (_lastname != value)
+        //        {
+        //            _lastname = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
 
-        public string CurrentStatus
-        {
-            get { return _currentstatus; }
-            set
-            {
-                if (_currentstatus != value)
-                {
-                    _currentstatus = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public string CurrentStatus
+        //{
+        //    get { return _currentstatus; }
+        //    set
+        //    {
+        //        if (_currentstatus != value)
+        //        {
+        //            _currentstatus = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
 
         public string Vegan
         {
@@ -217,30 +217,30 @@ namespace RecipeSystem
             }
         }
 
-        public int NumIngredients
-        {
-            get { return _numingredients; }
-            set
-            {
-                if (_numingredients != value)
-                {
-                    _numingredients = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
-        public string CuisineType
-        {
-            get { return _cuisinetype; }
-            set
-            {
-                if (_cuisinetype != value)
-                {
-                    _cuisinetype = value;
-                    InvokePropertyChanged();
-                }
-            }
-        }
+        //public int NumIngredients
+        //{
+        //    get { return _numingredients; }
+        //    set
+        //    {
+        //        if (_numingredients != value)
+        //        {
+        //            _numingredients = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
+        //public string CuisineType
+        //{
+        //    get { return _cuisinetype; }
+        //    set
+        //    {
+        //        if (_cuisinetype != value)
+        //        {
+        //            _cuisinetype = value;
+        //            InvokePropertyChanged();
+        //        }
+        //    }
+        //}
 
         private BizCuisine Cuisine
         {
