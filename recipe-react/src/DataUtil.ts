@@ -1,8 +1,8 @@
 import { FieldValues } from "react-hook-form";
 import { ICuisine, IRecipe, IUsers } from "./DataInterfaces";
 
-const baseurl = "https://localhost:44370/api/"
-// "https://recipeapi-yg.azurewebsites.net/api/"
+const baseurl = "https://recipeapi-yg.azurewebsites.net/api/"
+//"https://localhost:44370/api/"
 
 async function fetchData<T>(url: string): Promise<T> {
     url = baseurl + url;
