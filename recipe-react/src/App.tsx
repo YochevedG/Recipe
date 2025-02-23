@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import './assets/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import MainScreen from './MainScreen';
-import Navbar from './NavBar';
+import NavBar from './NavBar';
 import SideBar from './SideBar';
 import { blankrecipe } from './DataUtil';
 import { IRecipe } from './DataInterfaces';
 import { RecipeEdit } from './RecipeEdit';
-
+import { Outlet, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Meals from './Meals';
+import Cookbooks from './Cookbooks';
 
 function App() {
   const [selectedcuisineid, setSelectedCuisineId] = useState(0);
   const [isRecipeEdit, setIsRecipeEdit] = useState(false);
   const [recipeForEdit, setRecipeForEdit] = useState(blankrecipe);
-
 
   const handleCusineSelected = (cuisineId: number) => {
     setIsRecipeEdit(false);
@@ -30,30 +30,42 @@ function App() {
   };
 
   return (
-    <div className='container'>
-      <div className="row">
-        <div className="col-12 px-0">
-          <Navbar />
+    <Router>
+      <NavBar />
+
+      <div className='container'>
+        <div className="row">
+          <div className="col-12 px-0">
+            <hr />
+            <Outlet />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-3 col-lg-2 border border-light">
+            <button onClick={() => handleRecipeSelectedForEdit(blankrecipe)} className="btn btn-outline-primary">New Recipe</button>
+            <SideBar onCuisineSelected={handleCusineSelected} />
+          </div>
+          <div className="col-9 col-lg-10 bg-primary">
+            {isRecipeEdit ? (
+              <RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />
+            ) : (
+              <div className="recipe-list">
+                <Routes>
+                  <Route path="/meals" element={<Meals />} />
+                  <Route path="/cookbooks" element={<Cookbooks />} />
+                  <Route path="*" element={<h1>Page Not Found</h1>} />
+                  <Route path="/recipes" element={<MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />} />
+
+                </Routes>
+                {/* <MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} /> */}
+              </div>
+            )}
+          </div>
+          <div className="col-9 col-lg-10 bg-primary">
+          </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-3 col-lg-2 border border-light">
-          <button onClick={() => handleRecipeSelectedForEdit(blankrecipe)} className="btn btn-outline-primary">New Recipe</button>
-          <SideBar onCuisineSelected={handleCusineSelected} />
-        </div>
-        <div className="col-9 col-lg-10 bg-primary">
-          {isRecipeEdit ? (
-            <RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />
-          ) : (
-            <div className="recipe-list">
-              <MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />
-            </div>
-          )}
-        </div>
-        <div className="col-9 col-lg-10 bg-primary">
-        </div>
-      </div>
-    </div>
+    </Router>
   );
 }
 
