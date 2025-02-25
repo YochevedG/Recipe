@@ -6,7 +6,8 @@ import SideBar from './SideBar';
 import { blankrecipe } from './DataUtil';
 import { IRecipe } from './DataInterfaces';
 import { RecipeEdit } from './RecipeEdit';
-import { Outlet, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Outlet, BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Meals from './Meals';
 import Cookbooks from './Cookbooks';
 
@@ -53,8 +54,8 @@ function App() {
                 <Routes>
                   <Route path="/meals" element={<Meals />} />
                   <Route path="/cookbooks" element={<Cookbooks />} />
-                  <Route path="*" element={<h1>Page Not Found</h1>} />
                   <Route path="/recipes" element={<MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />} />
+                  <Route path="*" element={<h1>Page Not Found</h1>} />
 
                 </Routes>
                 {/* <MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} /> */}

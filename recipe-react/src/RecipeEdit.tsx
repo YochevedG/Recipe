@@ -94,7 +94,7 @@ export function RecipeEdit({ recipe, onClose }: Props) {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="vegan" className="form-label">Vegan:</label>
-                            <input type="text" {...register("vegan")} name="vegan" className="form-control" required />
+                            <input type="text" {...register("vegan")} name="vegan" className="form-control" />
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                         <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">Delete</button>
