@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './assets/css/bootstrap.min.css';
 import MainScreen from './MainScreen';
 import NavBar from './NavBar';
@@ -10,11 +10,22 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Outlet, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Meals from './Meals';
 import Cookbooks from './Cookbooks';
+import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
+import { useUserStore } from './userstore';
 
 function App() {
   const [selectedcuisineid, setSelectedCuisineId] = useState(0);
   const [isRecipeEdit, setIsRecipeEdit] = useState(false);
   const [recipeForEdit, setRecipeForEdit] = useState(blankrecipe);
+  const [unauthorizedMessage, setUnauthorizedMessage] = useState('');
+  const isLoggedIn = useUserStore(state => state.isLoggedin);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setUnauthorizedMessage('');
+    }
+  }, [isLoggedIn]);
 
   const handleCusineSelected = (cuisineId: number) => {
     setIsRecipeEdit(false);
@@ -22,6 +33,11 @@ function App() {
   };
 
   const handleRecipeSelectedForEdit = (recipe: IRecipe) => {
+    if (!isLoggedIn) {
+      setUnauthorizedMessage('You are not authorized to view this page. Please login.');
+      return;
+    }
+    setUnauthorizedMessage('');
     setRecipeForEdit(recipe);
     setIsRecipeEdit(true);
   };
@@ -47,22 +63,25 @@ function App() {
             <SideBar onCuisineSelected={handleCusineSelected} />
           </div>
           <div className="col-9 col-lg-10 bg-primary">
+            {unauthorizedMessage && (
+              <div className="alert alert-danger" role="alert">
+                {unauthorizedMessage}
+              </div>
+            )}
             {isRecipeEdit ? (
               <RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />
             ) : (
               <div className="recipe-list">
                 <Routes>
-                  <Route path="/meals" element={<Meals />} />
+                  <Route path="/meals" element={<ProtectedRoute requiredrole="admin" element={<Meals />} />} />
                   <Route path="/cookbooks" element={<Cookbooks />} />
                   <Route path="/recipes" element={<MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />} />
                   <Route path="*" element={<h1>Page Not Found</h1>} />
-
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/edit-recipe" element={<ProtectedRoute requiredrole="user" element={<RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />} />} />
                 </Routes>
-                {/* <MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} /> */}
               </div>
             )}
-          </div>
-          <div className="col-9 col-lg-10 bg-primary">
           </div>
         </div>
       </div>

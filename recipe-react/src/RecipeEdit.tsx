@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { blankrecipe, deleteRecipe, fetchCuisine, fetchUsers, postRecipe } from "./DataUtil";
 import { IUsers, IRecipe, ICuisine } from "./DataInterfaces";
+import { useUserStore } from "./userstore";
 
 interface Props {
     recipe: IRecipe;
@@ -13,6 +14,7 @@ export function RecipeEdit({ recipe, onClose }: Props) {
     const [users, setUsers] = useState<IUsers[]>([]);
     const [cuisine, setCuisine] = useState<ICuisine[]>([]);
     const [errormsg, setErrorMsg] = useState("");
+    const userRole = useUserStore(state => state.role); // Get user role
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -43,6 +45,10 @@ export function RecipeEdit({ recipe, onClose }: Props) {
     };
 
     const handleDelete = async () => {
+        if (userRole !== 'admin') {
+            setErrorMsg('You are not authorized to delete this recipe.');
+            return;
+        }
         const r = await deleteRecipe(recipe.recipeId);
         setErrorMsg(r.errorMessage);
         if (r.errorMessage === "") {
@@ -91,10 +97,6 @@ export function RecipeEdit({ recipe, onClose }: Props) {
                         <div className="mb-3">
                             <label htmlFor="calories" className="form-label">Calories:</label>
                             <input type="number" {...register("calories")} name="calories" className="form-control" required />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="vegan" className="form-label">Vegan:</label>
-                            <input type="text" {...register("vegan")} name="vegan" className="form-control" />
                         </div>
                         <button type="submit" className="btn btn-primary">Submit</button>
                         <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">Delete</button>
