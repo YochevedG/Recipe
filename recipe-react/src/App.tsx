@@ -7,7 +7,7 @@ import { blankrecipe } from './DataUtil';
 import { IRecipe } from './DataInterfaces';
 import { RecipeEdit } from './RecipeEdit';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { Outlet, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Meals from './Meals';
 import Cookbooks from './Cookbooks';
 import Login from './Login';
@@ -48,43 +48,49 @@ function App() {
 
   return (
     <Router>
-      <NavBar />
-
-      <div className='container'>
-        <div className="row">
-          <div className="col-12 px-0">
-            <hr />
-            <Outlet />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-3 col-lg-2 border border-light">
-            <button onClick={() => handleRecipeSelectedForEdit(blankrecipe)} className="btn btn-outline-primary">New Recipe</button>
-            <SideBar onCuisineSelected={handleCusineSelected} />
-          </div>
-          <div className="col-9 col-lg-10 bg-primary">
-            {unauthorizedMessage && (
-              <div className="alert alert-danger" role="alert">
-                {unauthorizedMessage}
+      {isLoggedIn ? (
+        <>
+          <NavBar />
+          <div className='container'>
+            <div className="row">
+              <div className="col-12 px-0">
+                <hr />
               </div>
-            )}
-            {isRecipeEdit ? (
-              <RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />
-            ) : (
-              <div className="recipe-list">
-                <Routes>
-                  <Route path="/meals" element={<ProtectedRoute requiredrole="admin" element={<Meals />} />} />
-                  <Route path="/cookbooks" element={<Cookbooks />} />
-                  <Route path="/recipes" element={<MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />} />
-                  <Route path="*" element={<h1>Page Not Found</h1>} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/edit-recipe" element={<ProtectedRoute requiredrole="user" element={<RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />} />} />
-                </Routes>
+            </div>
+            <div className="row">
+              <div className="col-3 col-lg-2 border border-light">
+                <button onClick={() => handleRecipeSelectedForEdit(blankrecipe)} className="btn btn-outline-primary">New Recipe</button>
+                <SideBar onCuisineSelected={handleCusineSelected} />
               </div>
-            )}
+              <div className="col-9 col-lg-10 bg-primary">
+                {unauthorizedMessage && (
+                  <div className="alert alert-danger" role="alert">
+                    {unauthorizedMessage}
+                  </div>
+                )}
+                {isRecipeEdit ? (
+                  <RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />
+                ) : (
+                  <div className="recipe-list">
+                    <Routes>
+                      <Route path="/meals" element={<Meals />} />
+                      <Route path="/cookbooks" element={<Cookbooks />} />
+                      <Route path="/recipes" element={<MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />} />
+                      <Route path="/edit-recipe" element={<ProtectedRoute requiredrole="user" element={<RecipeEdit recipe={recipeForEdit} onClose={handleFormClose} />} />} />
+                      <Route path="*" element={<MainScreen cuisineId={selectedcuisineid} onEdit={handleRecipeSelectedForEdit} />} />
+                    </Routes>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <Routes>
+          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      )}
     </Router>
   );
 }

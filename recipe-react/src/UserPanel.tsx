@@ -9,10 +9,13 @@ export default function UserPanel() {
 
     return (
         <>
-            {isLoggedIn ?
-                (<><span>{username}, {role} </span> <button onClick={logout}>Logout</button></>)
-                :
-                (<Link to="/login">Login</Link>)}
+            {isLoggedIn ? (
+                <span className="nav-link">
+                    {username}, {role} <button className="btn btn-link p-0 ms-2" onClick={logout}>Logout</button>
+                </span>
+            ) : (
+                <Link className="nav-link" to="/login">Login</Link>
+            )}
         </>
-    )
+    );
 }

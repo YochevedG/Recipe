@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import UserPanel from './UserPanel';
 
 export default function NavBar() {
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -24,12 +25,11 @@ export default function NavBar() {
                             <NavLink className="nav-link" to="/cookbooks">Cookbooks</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/login">Login</NavLink>
+                            <UserPanel />
                         </li>
-                        <UserPanel />
                     </ul>
                 </div>
             </div>
         </nav>
-    )
+    );
 }
